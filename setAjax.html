@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>setAjax</title>
+</head>
+
+<body>
+    <button id="btn">按我</button>
+</body>
+<script src="ajax.js"></script>
+<script>
+    var oBtn = document.getElementById('btn');
+    oBtn.onclick = function () {
+        ajax('get', 'test.html', 'cpage=1', function (resText) {
+            alert(resText);
+        })
+    }
+
+</script>
+
+</html>
