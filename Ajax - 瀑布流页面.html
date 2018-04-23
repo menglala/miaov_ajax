@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ajax - 瀑布流页面</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        #box {
+            margin: 20px auto;
+            width: 1100px;
+            border: 1px solid #eee;
+        }
+
+        li {
+            list-style: none;
+            display: inline-block;
+            width: 230px;
+            border: 1px solid #000;
+            margin: 10px;
+            padding: 5px;
+            vertical-align: top;
+        }
+    </style>
+    <script src="ajax.js"></script>
+    <script src="到浏览器的绝对位置函数(getPos).js"></script>
+    <script>
+        window.onload = function () {
+            var oUl = document.getElementById('list'),
+                aLi = oUl.getElementsByTagName('li'),
+                flag = true,
+                page = 1;
+
+            getLists();
+            function getLists() {
+                ajax('post', 'getPics.php', 'cpage=' + page, function (resText) {
+                    var aResponse = JSON.parse(resText);
+
+                    for (let i = 0; i < aResponse.length; i++) {
+                        var _index = getShortest(),
+                            oImg = document.createElement('img'),
+                            oP = document.createElement('p');
+
+                        oImg.src = aResponse[i].preview;
+                        oP.innerHTML = aResponse[i].title;
+                        oImg.style.width = '230px';
+                        oImg.style.height = aResponse[i].height * (230 / aResponse[i].width) + 'px';
+
+                        aLi[_index].appendChild(oImg);
+                        aLi[_index].appendChild(oP);
+                    }
+                    if (aResponse.length == 0) {
+                        flag = false
+                    } else {
+                        flag = true;
+                    }
+                })
+            }
+
+            window.onscroll = function () {
+                var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0,
+                    clientHeight = document.documentElement.clientHeight || document.body.clientHeight,
+                    _index = getShortest(),
+                    oLi = aLi[_index],
+                    pos = getPos(oLi);
+                if (flag) {
+                    
+                    if (scrollTop + clientHeight > oLi.offsetHeight + pos.top) {
+                        getLists();
+                        page++;
+                        flag = false;
+                    }
+                }
+                
+            }
+
+            function getShortest() {
+                var index = 0,
+                    iShortest = aLi[index].offsetHeiht;
+                for (let i = 0; i < aLi.length; i++) {
+                    if (aLi[i].offsetHeight < aLi[index].offsetHeight) {
+                        index = i;
+                        iShortest = aLi[i].offsetHeight;
+                    }
+                }
+                return index;
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div id="box">
+        <ul id="list">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+</body>
+
+</html>
