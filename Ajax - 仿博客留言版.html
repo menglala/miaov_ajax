@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ajax - 仿博客留言版</title>
+    <style>
+        body{
+            background-color: #eee;
+        }
+        .wrap {
+            margin: 20px auto;
+            width: 1200px;
+            padding: 10px;
+            font-family: sans-serif;
+        }
+
+        .content,.left,
+        .right {
+            display: inline-block;
+            vertical-align: text-top;
+        }
+        .left {
+            width: 700px;
+        }
+        .content{
+            margin: 10px 0 0 30px;
+            background-color: #fff;
+            padding: 10px;
+            width: 650px;
+        }
+        .right {
+            width: 400px;
+            padding: 10px;
+        }
+
+        .customer {
+            font: 600 18px "等线";
+        }
+
+        .content span {
+            float: right;
+            margin: 5px;
+        }
+
+        .register,
+        .login,
+        .guestbook {
+            background-color: #fff;
+            padding: 10px 15px;
+            margin: 0 0 10px 0;
+            width: 400px;
+        }
+
+        button {
+            margin-top: 10px;
+        }
+        .customer{
+            margin: 0 0 10px 0;
+        }
+        .login>:first-child,
+        .register>:first-child,
+        .guestbook>:first-child {
+            background-color: rgb(210, 209, 209);
+            font: 600 18px "黑体";
+            padding: 5px;
+        }
+
+        #showMore {
+            text-align: center;
+            background-color: #fff;
+            display: inline-block;
+            width: 645px;
+            cursor: pointer;
+            padding: 12px;
+            margin: 10px 0 0 30px;
+        }
+        #logout{
+            font: italic 600 14px '黑体';
+            cursor: pointer;
+            background-color: #fff;
+            float: right;
+        }
+        #login_message{
+            font: normal 14px '黑体';
+            background-color: #fff;
+            width: 400px;
+            padding: 15px;
+            display: none;
+        }
+    </style>
+    <script src="ajax.js"></script>
+    <script src="Ajax - 仿博客留言版.js"></script>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="left">
+            <!-- <dl class="content">
+                <dt class="customer">小梦</dt>
+                <dd class="notes">哈哈哈哈我去而体育ISO平sghjkl;sghjakp[算得上是多所所多多多多多多多多多多多多多多多多多多多多多多多多多多多多多多多多多多多多多多多多或</dd>
+                <span>踩(0)</span>
+                <span>顶(0)</span>
+            </dl> -->
+            <p id="showMore">显示更多<<</p>
+        </div>
+
+        <div class="right">
+            <div class="register">
+                <p>注册</p>
+                <label for="username1">用户名:</label>
+                <input type="text" id="username1">
+                <p id="register_message"></p>
+                <br>
+                <label for="password1">密码:</label>
+                <input type="password" id="password1">
+                <br>
+                <button id="register_btn">注册</button>
+            </div>
+            <p id="login_message">嘻嘻嘻</p>
+            <div class="login">
+                <p>登录</p>
+                <label for="username2">用户名:</label>
+                <input type="text" id="username2">
+                <p></p>
+                <br>
+                <label for="password2">密码:</label>
+                <input type="password" id="password2">
+                <br>
+                <button id="login_btn">登录</button>
+            </div>
+            <div class="guestbook">
+                <p>发表留言</p>
+                <textarea name="guestbook" id="guestbook" cols="45" rows="10"></textarea>
+                <br>
+                <input type="submit" value="发表留言" id="submit">
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
